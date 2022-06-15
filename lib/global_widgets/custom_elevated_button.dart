@@ -1,17 +1,16 @@
-import 'package:final_task/views/bee_work/splash_screen.dart';
-import 'package:final_task/views/bee_work_love_cards.dart';
-import 'package:final_task/views/bee_work/match_profile/sam_profile.dart';
-import '../views/auth/mobile_auth/verify_mobile_user.dart';
 
 import 'package:flutter/material.dart';
 
-Widget customElevatedButton(context, String text, Size dim, bool toBeVerified) {
+Widget customElevatedButton(context, String text, Size dim, bool toBeVerified,
+    {Function()? onTap}) {
   return ElevatedButton(
-      onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  toBeVerified ? Verify() : BeeWorkAndLove())),
+      onPressed: () => onTap!()
+      // Navigator.push(
+      // context,
+      // MaterialPageRoute(
+      //     builder: (context) =>
+      //         toBeVerified ? Verify() : BeeWorkAndLove()))
+      ,
       style: ElevatedButton.styleFrom(primary: Color.fromRGBO(13, 72, 77, 1)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,19 +28,12 @@ Widget customElevatedButton(context, String text, Size dim, bool toBeVerified) {
 }
 
 Widget ProfileElevatedButton(
-    context, String text, Size dim, PageController pageController) {
+    context, String text, Size dim, PageController pageController,
+    {Function()? onTap}) {
   return Padding(
     padding: EdgeInsets.only(top: dim.width / 12),
     child: ElevatedButton(
-        onPressed: () => text == 'I Agree'
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SplashScreen(
-                          nxtPage: ProfileMainPage(),
-                        )))
-            : pageController.nextPage(
-                duration: Duration(milliseconds: 500), curve: Curves.easeIn),
+        onPressed: () => onTap!(),
         style:
             ElevatedButton.styleFrom(primary: Color.fromRGBO(46, 103, 249, 1)),
         child: Row(

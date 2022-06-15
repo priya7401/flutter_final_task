@@ -14,6 +14,7 @@ class AddSkills extends StatefulWidget {
 }
 
 class _AddSkillsState extends State<AddSkills> {
+  final _formKey = GlobalKey<FormState>();
   List<String> skillsList = [
     'Data Science',
     'Network Database',
@@ -21,6 +22,8 @@ class _AddSkillsState extends State<AddSkills> {
     'Leadership'
   ];
   List<String> selectedItems = ['Network Database'];
+
+  String skill = '';
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class _AddSkillsState extends State<AddSkills> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      dropDownBox('Skills', skillsList),
+                      Form(key: _formKey, child: dropDownBox('Skills')),
                       Expanded(
                         child: Wrap(
                           spacing: 10,
@@ -64,7 +67,16 @@ class _AddSkillsState extends State<AddSkills> {
                         ),
                       ),
                       ProfileElevatedButton(
-                          context, 'Next', dim, widget.controller)
+                          context, 'Next', dim, widget.controller, onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          // _formKey.currentState!.save();
+                          print(selectedItems);
+                          widget.controller.nextPage(
+                              duration:
+                              Duration(milliseconds: 200),
+                              curve: Curves.easeIn);
+                        }
+                      })
                     ],
                   ),
                 ),
@@ -76,7 +88,7 @@ class _AddSkillsState extends State<AddSkills> {
     );
   }
 
-  Widget dropDownBox(String hint, List<String> list) {
+  Widget dropDownBox(String hint) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: DropdownButtonFormField<String>(
@@ -88,12 +100,23 @@ class _AddSkillsState extends State<AddSkills> {
             selectedItems.add(newValue!);
           });
         },
-        items: list.map<DropdownMenuItem<String>>((String value) {
+        items: skillsList.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
           );
         }).toList(),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please choose an option';
+          } else if (selectedItems.length != 3) {
+            return 'Please choose any 3 skills';
+          }
+          return null;
+        },
+        // onSaved: (value) {
+        //   skill = value!;
+        // },
       ),
     );
   }

@@ -10,6 +10,8 @@ class _$AuthViewModel extends AuthViewModel {
   @override
   final LoginWithPasswordAction loginWithPassword;
   @override
+  final RegisterWithMobileAction registerWithMobile;
+  @override
   final LogOutAction logOut;
   @override
   final AppUser? currentUser;
@@ -21,12 +23,15 @@ class _$AuthViewModel extends AuthViewModel {
 
   _$AuthViewModel._(
       {required this.loginWithPassword,
+      required this.registerWithMobile,
       required this.logOut,
       this.currentUser,
       required this.isInitializing})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         loginWithPassword, r'AuthViewModel', 'loginWithPassword');
+    BuiltValueNullFieldError.checkNotNull(
+        registerWithMobile, r'AuthViewModel', 'registerWithMobile');
     BuiltValueNullFieldError.checkNotNull(logOut, r'AuthViewModel', 'logOut');
     BuiltValueNullFieldError.checkNotNull(
         isInitializing, r'AuthViewModel', 'isInitializing');
@@ -45,6 +50,7 @@ class _$AuthViewModel extends AuthViewModel {
     final dynamic _$dynamicOther = other;
     return other is AuthViewModel &&
         loginWithPassword == _$dynamicOther.loginWithPassword &&
+        registerWithMobile == _$dynamicOther.registerWithMobile &&
         logOut == _$dynamicOther.logOut &&
         currentUser == other.currentUser &&
         isInitializing == other.isInitializing;
@@ -53,7 +59,11 @@ class _$AuthViewModel extends AuthViewModel {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, loginWithPassword.hashCode), logOut.hashCode),
+        $jc(
+            $jc(
+                $jc($jc(0, loginWithPassword.hashCode),
+                    registerWithMobile.hashCode),
+                logOut.hashCode),
             currentUser.hashCode),
         isInitializing.hashCode));
   }
@@ -62,6 +72,7 @@ class _$AuthViewModel extends AuthViewModel {
   String toString() {
     return (newBuiltValueToStringHelper(r'AuthViewModel')
           ..add('loginWithPassword', loginWithPassword)
+          ..add('registerWithMobile', registerWithMobile)
           ..add('logOut', logOut)
           ..add('currentUser', currentUser)
           ..add('isInitializing', isInitializing))
@@ -77,6 +88,12 @@ class AuthViewModelBuilder
   LoginWithPasswordAction? get loginWithPassword => _$this._loginWithPassword;
   set loginWithPassword(LoginWithPasswordAction? loginWithPassword) =>
       _$this._loginWithPassword = loginWithPassword;
+
+  RegisterWithMobileAction? _registerWithMobile;
+  RegisterWithMobileAction? get registerWithMobile =>
+      _$this._registerWithMobile;
+  set registerWithMobile(RegisterWithMobileAction? registerWithMobile) =>
+      _$this._registerWithMobile = registerWithMobile;
 
   LogOutAction? _logOut;
   LogOutAction? get logOut => _$this._logOut;
@@ -99,6 +116,7 @@ class AuthViewModelBuilder
     final $v = _$v;
     if ($v != null) {
       _loginWithPassword = $v.loginWithPassword;
+      _registerWithMobile = $v.registerWithMobile;
       _logOut = $v.logOut;
       _currentUser = $v.currentUser?.toBuilder();
       _isInitializing = $v.isInitializing;
@@ -128,6 +146,8 @@ class AuthViewModelBuilder
           new _$AuthViewModel._(
               loginWithPassword: BuiltValueNullFieldError.checkNotNull(
                   loginWithPassword, r'AuthViewModel', 'loginWithPassword'),
+              registerWithMobile: BuiltValueNullFieldError.checkNotNull(
+                  registerWithMobile, r'AuthViewModel', 'registerWithMobile'),
               logOut: BuiltValueNullFieldError.checkNotNull(
                   logOut, r'AuthViewModel', 'logOut'),
               currentUser: _currentUser?.build(),

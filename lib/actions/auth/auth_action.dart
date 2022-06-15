@@ -54,3 +54,12 @@ class SetSuccessMessage {
 
   final String message;
 }
+
+
+//**************************** register with mobile number *************************//
+class RegisterWithMobile {
+  final String? mobileNum;
+  final String? iSDCode;
+
+  RegisterWithMobile({ this.mobileNum, this.iSDCode});
+}

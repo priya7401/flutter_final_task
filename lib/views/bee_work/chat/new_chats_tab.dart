@@ -123,15 +123,11 @@ class _NewChatsState extends State<NewChats> {
   }
 }
 
-
 Widget loadingImage(path, dim) {
   return percentIndicator(
-      centerIcon: SizedBox(
-        height: dim.height / 13,
-        width: dim.width / 7.5,
-        child: CircleAvatar(
-          foregroundImage: AssetImage(path),
-        ),
+      centerIcon: CircleAvatar(
+        backgroundImage: AssetImage(path),
+        radius: 28,
       ),
       percent: 0.75);
 }

@@ -16,6 +16,9 @@ class _BuildProfileState extends State<BuildProfile> {
   final _formKey = GlobalKey<FormState>();
   bool showAnswerBox = false;
 
+  String aboutMe = '', question = '';
+  Map<String,String> details = {};
+
   @override
   Widget build(BuildContext context) {
     Size dim = MediaQuery.of(context).size;
@@ -52,13 +55,22 @@ class _BuildProfileState extends State<BuildProfile> {
                             decoration: InputDecoration(
                                 labelText:
                                     'A little about me (Max 100 characters)'),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter valid information';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              aboutMe = value!;
+                            },
                           ),
-                          dropDownBox('Committed Relationship',
+                          dropDownBox('Relationship',
                               ['Committed Relationship']),
                           dropDownBox('Profession', ['Co-founder']),
                           dropDownBox('Industry', ['Co-founder']),
                           dropDownBox('Education', ['Graduate']),
-                          dropDownBox(
+                          dropDownBoxWithSubmit(
                               'Let\'s talk business(Choose a question)',
                               ['Choose a question']),
                           showAnswerBox
@@ -69,9 +81,28 @@ class _BuildProfileState extends State<BuildProfile> {
                                       maxLines: 3,
                                       decoration: InputDecoration(
                                           labelText: 'Type your answer'),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Please choose an option';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        question = value!;
+                                      },
                                     ),
-                                    ProfileElevatedButton(context, 'Next',
-                                        dim, widget.controller)
+                                    ProfileElevatedButton(
+                                        context, 'Next', dim, widget.controller,
+                                        onTap: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+                                        print(details['Relationship']);
+                                        widget.controller.nextPage(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            curve: Curves.easeIn);
+                                      }
+                                    })
                                   ],
                                 )
                               : SizedBox(),
@@ -102,10 +133,43 @@ class _BuildProfileState extends State<BuildProfile> {
             child: Text(value),
           );
         }).toList(),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please choose an option';
+          }
+          return null;
+        },
+        onSaved: (value) {
+          details[hint] = value!;
+        },
+      ),
+    );
+  }
+
+  Widget dropDownBoxWithSubmit(String hint, List<String> list) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: DropdownButtonFormField<String>(
+        hint: Text(hint),
+        icon: const Icon(Icons.arrow_drop_down),
+        elevation: 16,
+        onChanged: (String? newValue) {},
+        items: list.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
         onTap: () {
           setState(() {
             showAnswerBox = !showAnswerBox;
           });
+        },
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please choose an option';
+          }
+          return null;
         },
       ),
     );

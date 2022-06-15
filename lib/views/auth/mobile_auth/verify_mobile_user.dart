@@ -1,6 +1,7 @@
 //project files import
 import 'package:final_task/global_widgets/custom_elevated_button.dart';
 import 'package:final_task/global_widgets/login_buttons_and_app_logo_with_title.dart';
+import 'package:final_task/views/bee_work_love_cards.dart';
 
 //packages import
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class Verify extends StatefulWidget {
 }
 
 class _VerifyState extends State<Verify> {
+  String otp = '';
+
   @override
   Widget build(BuildContext context) {
     Size dim = MediaQuery.of(context).size;
@@ -42,7 +45,9 @@ class _VerifyState extends State<Verify> {
                   textFieldAlignment: MainAxisAlignment.spaceAround,
                   fieldStyle: FieldStyle.underline,
                   onCompleted: (pin) {
-                    print("Completed: $pin");
+                    setState(() {
+                      otp = pin;
+                    });
                   },
                 ),
                 //resend OTP
@@ -64,7 +69,9 @@ class _VerifyState extends State<Verify> {
             ),
 
             //submit(next) button
-            customElevatedButton(context, 'Next', dim, false),
+            customElevatedButton(context, 'Next', dim, false,
+                onTap: () => Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => BeeWorkAndLove()))),
           ],
         ),
       ),

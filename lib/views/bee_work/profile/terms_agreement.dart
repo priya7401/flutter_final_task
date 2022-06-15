@@ -1,5 +1,8 @@
 import 'package:final_task/global_widgets/checkBox_theme.dart';
 import 'package:final_task/global_widgets/custom_elevated_button.dart';
+import 'package:final_task/views/bee_work/match_profile/sam_profile.dart';
+import 'package:final_task/views/bee_work/profile/profile_creation.dart';
+import 'package:final_task/views/bee_work/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class TermsAgreement extends StatefulWidget {
@@ -14,7 +17,6 @@ class _TermsAgreementState extends State<TermsAgreement> {
 
   @override
   Widget build(BuildContext context) {
-
     Size dim = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -122,8 +124,14 @@ class _TermsAgreementState extends State<TermsAgreement> {
                     ),
                   ),
                 ),
-                ProfileElevatedButton(
-                    context, 'I Agree', dim, PageController()),
+                ProfileElevatedButton(context, 'I Agree', dim, PageController(),
+                    onTap: () => checkedVal
+                        ? Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    SplashScreen(nxtPage: ProfileMainPage())))
+                        : null),
               ],
             ),
           ),

@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 class InitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AuthConnector(
-      builder: (BuildContext c, AuthViewModel model) {
-        if (model.isInitializing) {
-          return AppLoader();
-        }
-        return model.currentUser == null ? LandingPage() : HomePage();
-      },
-    );
+    // return AuthConnector(
+    //   builder: (BuildContext c, AuthViewModel model) {
+    //     if (model.isInitializing) {
+    //       return AppLoader();
+    //     }
+    //     return model.currentUser == null ? LandingPage() : HomePage();
+    //   },
+    // );
+    return LandingPage();
   }
 }

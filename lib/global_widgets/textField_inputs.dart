@@ -1,23 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 
 Color grey = Color.fromRGBO(226, 226, 226, 1);
 
-Widget MobileNumInput(controller) {
+Widget MobileNumInput(controller, formKey, mobileNo, countryCode) {
   return Form(
-    child: TextFormField(
-      controller: controller,
-      cursorColor: const Color.fromRGBO(13, 72, 77, 1),
-      decoration: InputDecoration(
-        focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(13, 72, 77, 1))),
-        labelText: 'Enter your mobile number',
-        labelStyle: const TextStyle(color: Color.fromRGBO(13, 72, 77, 1)),
-        prefix: Align(
-            widthFactor: 1,
-            heightFactor: 0.7,
-            child: Image.asset('assets/images/black_logo.png', scale: 100)),
-      ),
-      keyboardType: TextInputType.number,
+    key: formKey,
+    child: Row(
+      children: [
+        Flexible(flex: 1,
+          child: CountryCodePicker(
+            onChanged: (val) {
+              countryCode = val;
+            },
+            initialSelection: 'UK',
+            favorite: ['+44', 'UK'],
+            showCountryOnly: false,
+            showOnlyCountryWhenClosed: false,
+          ),
+        ),
+        Flexible(flex: 2,
+          child: TextFormField(
+            controller: controller,
+            cursorColor: const Color.fromRGBO(13, 72, 77, 1),
+            decoration: InputDecoration(
+              focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color.fromRGBO(13, 72, 77, 1))),
+              labelText: 'Enter your mobile number',
+              labelStyle: const TextStyle(color: Color.fromRGBO(13, 72, 77, 1)),
+            ),
+            keyboardType: TextInputType.number,
+            onSaved: (val) {
+              mobileNo = val;
+            },
+          ),
+        ),
+      ],
     ),
   );
 }

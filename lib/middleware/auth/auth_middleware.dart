@@ -17,7 +17,8 @@ class AuthMiddleware {
     return <Middleware<AppState>>[
       TypedMiddleware<AppState, CheckForUserInPrefs>(checkForUserInPrefs),
       TypedMiddleware<AppState, LoginWithPassword>(loginWithPassword),
-      TypedMiddleware<AppState, LogOutUser>(logOutUser)
+      TypedMiddleware<AppState, LogOutUser>(logOutUser),
+      TypedMiddleware<AppState, RegisterWithMobile>(registerWithMobile)
     ];
   }
 
@@ -80,6 +81,37 @@ class AuthMiddleware {
       Store<AppState> store, LogOutUser action, NextDispatcher next) async {
     repository.setUserPrefs(appUser: null);
     store.dispatch(SaveUser(userDetails: null));
+    next(action);
+  }
+
+  void registerWithMobile(Store<AppState> store, RegisterWithMobile action,
+      NextDispatcher next) async {
+    try {
+      store.dispatch(SetLoader(true));
+      final Map<String, String> objToApi = <String, String>{
+        'user': action.mobileNum!
+      };
+      final Map<String, dynamic> response =
+          await authService.registerWithMobile(objToApi: objToApi);
+
+      final AppUser user = response['user'];
+
+      store.dispatch(SaveUser(userDetails: user));
+      store.state.navigator.currentState!
+          .push(MaterialPageRoute(builder: (context) => HomePage()));
+      print(
+          "=============in state =========${store.state.currentUser.toString()}");
+      store.dispatch(SetLoader(false));
+    } on ApiError catch (e) {
+      debugPrint('============ login error block ========== ${e.toString()}');
+      store.dispatch(SetLoader(false));
+      //  globalErrorAlert(
+      //      store.state.navigator.currentContext, e?.errorMessage, null);
+      return;
+    } catch (e) {
+      store.dispatch(SetLoader(false));
+      debugPrint('============ login catch block ========== ${e.toString()}');
+    }
     next(action);
   }
 }

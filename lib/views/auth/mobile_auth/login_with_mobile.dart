@@ -1,5 +1,5 @@
 //packages imports
-import 'package:final_task/global_widgets/textField_inputs.dart';
+import 'package:final_task/views/auth/mobile_auth/sign_up_with_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
@@ -36,7 +36,7 @@ class _LoginWithMobileState extends State<LoginWithMobile> {
             //icon
             AppLogoAndTitle(),
             //number input
-            MobileNumInput(_controller),
+            // MobileNumInput(_controller, formKey, '', ''),
             //verify button
             customElevatedButton(context, 'Login', dim, true)
           ],

@@ -59,7 +59,10 @@ class _DoesPoseMatchState extends State<DoesPoseMatch> {
                   padding: EdgeInsets.symmetric(
                       horizontal: dim.width / 30, vertical: dim.height / 20),
                   child: ProfileElevatedButton(
-                      context, 'Submit', dim, widget.controller),
+                      context, 'Submit', dim, widget.controller,
+                      onTap: () => widget.controller.nextPage(
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeIn)),
                 )
               ],
             ),

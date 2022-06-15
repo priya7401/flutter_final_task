@@ -95,7 +95,10 @@ class _AddPhotosState extends State<AddPhotos> {
                   ),
                   const Text(
                       'We’ll only show your photos, and not your Profile details or hashtags/descriptions.'),
-                  ProfileElevatedButton(context, 'Next', dim, widget.controller)
+                  ProfileElevatedButton(context, 'Next', dim, widget.controller,
+                      onTap: () => widget.controller.nextPage(
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeIn))
                 ],
               ),
             ),

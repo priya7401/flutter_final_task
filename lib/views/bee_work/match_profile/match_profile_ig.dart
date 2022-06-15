@@ -271,15 +271,15 @@ class _matchProfileIgState extends State<matchProfileIg> {
                 children: [
                   transparentScreenIconContainer(
                       Icon(Icons.close),
-                      Colors.black,
-                      CustomDialog(
-                          Icons.undo,
-                          JoinVibeScreen1(),
-                          'Quick swiping gone wrong? No need to stress, we’ve got you.',
-                          'Become a vibee and undo swipes to bring them back.',
-                          'Join Vibee',
-                          dim,
-                          context),
+                      Colors.black, {},
+                      // CustomDialog(
+                      //     Icons.undo,
+                      //     JoinVibeScreen1(),
+                      //     'Quick swiping gone wrong? No need to stress, we’ve got you.',
+                      //     'Become a vibee and undo swipes to bring them back.',
+                      //     'Join Vibee',
+                      //     dim,
+                      //     context),
                       context,
                       'close'),
                   iconContainer(Icon(Icons.lightbulb), Colors.yellow,

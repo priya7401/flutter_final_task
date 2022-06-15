@@ -9,6 +9,8 @@ part 'auth_connector.g.dart';
 
 typedef LoginWithPasswordAction = void Function(
     String email, String mobile, String password);
+typedef RegisterWithMobileAction = void Function(
+    String? mobileNum, String? iSDCode);
 typedef LogOutAction = void Function();
 
 abstract class AuthViewModel
@@ -28,6 +30,10 @@ abstract class AuthViewModel
           store.dispatch(LoginWithPassword(
               email: email, mobile: mobile, password: password));
         }
+        ..registerWithMobile = (String? mobileNum, String? iSDCode) {
+          store.dispatch(RegisterWithMobile(
+              mobileNum: mobileNum, iSDCode: iSDCode));
+        }
         ..logOut = () {
           store.dispatch(LogOutUser());
         };
@@ -35,6 +41,8 @@ abstract class AuthViewModel
   }
 
   LoginWithPasswordAction get loginWithPassword;
+
+  RegisterWithMobileAction get registerWithMobile;
 
   LogOutAction get logOut;
 
